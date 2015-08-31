@@ -218,6 +218,8 @@ module JavaBuildpack
         # Beware known problems with timeouts: https://www.ruby-forum.com/topic/143840
         def http_options(rich_uri)
           http_options = {}
+          
+          http_options[:verify_mode] = OpenSSL::SSL::VERIFY_NONE
 
           if secure?(rich_uri)
             http_options[:use_ssl] = true
