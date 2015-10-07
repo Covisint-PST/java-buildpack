@@ -48,9 +48,9 @@ module JavaBuildpack
       def compile
         #if /oraclejdk[1-9]/.match($configjdk)
         download_zip 
-        FileUtils.cp_r("/tmp/staged/app/.java-buildpack/jce_support/.", "/tmp/staged/app/.java-buildpack/open_jdk_jre/jre/lib/security")
-        FileUtils.rm_r("/tmp/staged/app/.java-buildpack/jce_support")
-        FileUtils.rm_r("/tmp/staged/app/.java-buildpack/jce_support.nil.nil")
+        FileUtils.cp_r("#{@droplet.root}/.java-buildpack/jce_support/.", "#{@droplet.root}/.java-buildpack/open_jdk_jre/jre/lib/security")
+        FileUtils.rm_r("#{@droplet.root}/.java-buildpack/jce_support")
+        FileUtils.rm_r("#{@droplet.root}/.java-buildpack/jce_support.nil.nil")
         
        # end
       end
