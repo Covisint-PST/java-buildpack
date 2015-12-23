@@ -16,7 +16,7 @@
 # Configuration for the Tomcat container
 ---
 tomcat8:
-  version: 8.0.+
+  version: 8.0.28
   repository_root: ! '{default.repository.root}/tomcat'
 tomcat7:
   version: 7.0.+
