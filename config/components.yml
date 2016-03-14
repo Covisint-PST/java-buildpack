@@ -46,3 +46,4 @@ frameworks:
   - "JavaBuildpack::Framework::SpringInsight"
   - "JavaBuildpack::Framework::JceSupport"
   - "JavaBuildpack::Framework::JacocoAgent"
+  - "JavaBuildpack::Framework::AppNetaAgent"
