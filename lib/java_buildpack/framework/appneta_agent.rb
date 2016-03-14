@@ -21,46 +21,46 @@ require 'java_buildpack/framework'
 module JavaBuildpack
   module Framework
 
-    # Encapsulates the functionality for enabling AppNeta support.
+    # Encapsulates the functionality for enabling zero-touch New Relic support.
     class AppNetaAgent < JavaBuildpack::Component::VersionedDependencyComponent
-      include JavaBuildpack::Util
+
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         FileUtils.mkdir_p logs_dir
-        download_jar tracelyticsagent.jar
+        download_jar 
         @droplet.copy_resources
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts.add_javaagent(@droplet.sandbox + jar_name)
-          #.add_system_property('newrelic.home', @droplet.sandbox)
-          #.add_system_property('newrelic.config.license_key', license_key)
-          #.add_system_property('newrelic.config.app_name', "#{application_name}")
-          #.add_system_property('newrelic.config.log_file_path', logs_dir)
-        #@droplet.java_opts.add_system_property('newrelic.enable.java.8', 'true') if @droplet.java_home.java_8_or_later?
+        @droplet.java_opts
+          .add_javaagent(@droplet.sandbox + jar_name)
+          .add_system_property('newrelic.home', @droplet.sandbox)
+          .add_system_property('newrelic.config.license_key', license_key)
+          .add_system_property('newrelic.config.app_name', "#{application_name}")
+          .add_system_property('newrelic.config.log_file_path', logs_dir)
+        @droplet.java_opts.add_system_property('newrelic.enable.java.8', 'true') if @droplet.java_home.java_8_or_later?
       end
 
       protected
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        true
-        #@application.services.one_service? FILTER, 'licenseKey'
+        @application.services.one_service? FILTER, 'licenseKey'
       end
 
       private
 
-      FILTER = /appneta/.freeze
+      FILTER = /newrelic/.freeze
 
       private_constant :FILTER
 
       def application_name
-        #@application.details['application_name']
+        @application.details['application_name']
       end
 
       def license_key
-        #@application.services.find_service(FILTER)['credentials']['licenseKey']
+        @application.services.find_service(FILTER)['credentials']['licenseKey']
       end
 
       def logs_dir
