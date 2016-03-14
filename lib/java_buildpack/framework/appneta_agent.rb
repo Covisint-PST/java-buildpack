@@ -23,7 +23,7 @@ module JavaBuildpack
 
     # Encapsulates the functionality for enabling AppNeta support.
     class AppNetaAgent < JavaBuildpack::Component::VersionedDependencyComponent
-
+      include JavaBuildpack::Util
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         FileUtils.mkdir_p logs_dir
