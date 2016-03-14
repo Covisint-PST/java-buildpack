@@ -22,7 +22,7 @@ module JavaBuildpack
   module Framework
 
     # Encapsulates the functionality for enabling AppNeta support.
-    class AppNeta < JavaBuildpack::Component::VersionedDependencyComponent
+    class AppNetaAgent < JavaBuildpack::Component::VersionedDependencyComponent
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
