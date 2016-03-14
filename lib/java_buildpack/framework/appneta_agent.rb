@@ -33,8 +33,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts
-          .add_javaagent(@droplet.sandbox + jar_name)
+       # @droplet.java_opts
+          #.add_javaagent(@droplet.sandbox + jar_name)
           #.add_system_property('newrelic.home', @droplet.sandbox)
           #.add_system_property('newrelic.config.license_key', license_key)
           #.add_system_property('newrelic.config.app_name', "#{application_name}")
