@@ -57,11 +57,11 @@ module JavaBuildpack
       private_constant :FILTER
 
       def application_name
-        @application.details['application_name']
+        #@application.details['application_name']
       end
 
       def license_key
-        @application.services.find_service(FILTER)['credentials']['licenseKey']
+        #@application.services.find_service(FILTER)['credentials']['licenseKey']
       end
 
       def logs_dir
