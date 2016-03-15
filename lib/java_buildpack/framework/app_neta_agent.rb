@@ -37,9 +37,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        true
-        #@droplet.java_opts
-         #       .add_agentpath_with_props(agent_dir + "libdtagent.so", name: "Tomcat_Monitoring", server: server)
+        @droplet.java_opts
+                .add_agentpath_with_props(agent_dir + "libdtagent.so", name: "Tomcat_Monitoring", server: server)
         #this below will be used when we go for generic profile..
         #@droplet.java_opts
           #.add_agentpath_with_props(agent_dir + 'libdtagent.so',
@@ -51,7 +50,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        @application.services.one_service? FILTER, 'server'
+        true
+        #@application.services.one_service? FILTER, 'server'
       end
 
       private
