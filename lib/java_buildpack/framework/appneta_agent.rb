@@ -58,14 +58,14 @@ module JavaBuildpack
 
       #FILTER = /appneta/.freeze
 
-      private_constant :FILTER
+      #private_constant :FILTER
 
       def application_name
         @application.details['application_name']
       end
 
       def profile_name
-        @application.services.find_service(FILTER)['credentials']['profile'] || 'Monitoring'
+       # @application.services.find_service(FILTER)['credentials']['profile'] || 'Monitoring'
       end
 
       def agent_dir
