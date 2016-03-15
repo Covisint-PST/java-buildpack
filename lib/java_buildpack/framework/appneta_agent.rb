@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013-2015 the original author or authors.
+# Copyright 2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,41 +17,46 @@
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/framework'
+require 'java_buildpack/util/qualify_path'
 
 module JavaBuildpack
   module Framework
 
-    # Encapsulates the functionality for enabling zero-touch New Relic support.
+    # Encapsulates the functionality for enabling AppNetaAgent support.
     class AppNetaAgent < JavaBuildpack::Component::VersionedDependencyComponent
+      include JavaBuildpack::Util
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        FileUtils.mkdir_p logs_dir
-        download_jar 
+        download_zip false
         @droplet.copy_resources
+        FileUtils.mkdir(home_dir)
+        FileUtils.mv(@droplet.sandbox, home_dir)
+        delete_extra_files
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
         @droplet.java_opts
-          .add_javaagent(@droplet.sandbox + jar_name)
-          .add_system_property('newrelic.home', @droplet.sandbox)
-          .add_system_property('newrelic.config.license_key', license_key)
-          .add_system_property('newrelic.config.app_name', "#{application_name}")
-          .add_system_property('newrelic.config.log_file_path', logs_dir)
-        @droplet.java_opts.add_system_property('newrelic.enable.java.8', 'true') if @droplet.java_home.java_8_or_later?
+                .add_agentpath_with_props(agent_dir + "libdtagent.so", name: "Tomcat_Monitoring", server: server)
+        #this below will be used when we go for generic profile..
+        #@droplet.java_opts
+          #.add_agentpath_with_props(agent_dir + 'libdtagent.so',
+                                    #name: application_name + '_' + profile_name,
+                                    #server: server)
       end
 
       protected
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        @application.services.one_service? FILTER, 'licenseKey'
+        true 
+        #@application.services.one_service? FILTER, 'server'
       end
 
       private
 
-      FILTER = /newrelic/.freeze
+      FILTER = /appneta/.freeze
 
       private_constant :FILTER
 
@@ -59,12 +64,33 @@ module JavaBuildpack
         @application.details['application_name']
       end
 
-      def license_key
-        @application.services.find_service(FILTER)['credentials']['licenseKey']
+      def profile_name
+        @application.services.find_service(FILTER)['credentials']['profile'] || 'Monitoring'
+      end
+
+      def agent_dir
+        @droplet.sandbox + 'home/agent/lib64'
+      end
+
+      def delete_extra_files
+        FileUtils.rm_rf(@droplet.sandbox + 'agent')
+        FileUtils.rm_rf(@droplet.sandbox + 'init.d')
+        FileUtils.rm_rf(@droplet.sandbox + 'com')
+        FileUtils.rm_rf(@droplet.sandbox + 'org')
+        FileUtils.rm_rf(@droplet.sandbox + 'META_INF')
+        FileUtils.rm_f(@droplet.sandbox + 'YouShouldNotHaveUnzippedMe.txt')
       end
 
       def logs_dir
-        @droplet.sandbox + 'logs'
+        @droplet.sandbox + 'home/log'
+      end
+
+      def home_dir
+        @droplet.sandbox + 'home'
+      end
+
+      def server
+        @application.services.find_service(FILTER)['credentials']['server']
       end
 
     end
