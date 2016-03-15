@@ -69,16 +69,16 @@ module JavaBuildpack
       end
 
       def agent_dir
-        @droplet.sandbox + 'home/agent/lib64'
+        #@droplet.sandbox + 'home/agent/lib64'
       end
 
       def delete_extra_files
-        FileUtils.rm_rf(@droplet.sandbox + 'agent')
-        FileUtils.rm_rf(@droplet.sandbox + 'init.d')
-        FileUtils.rm_rf(@droplet.sandbox + 'com')
-        FileUtils.rm_rf(@droplet.sandbox + 'org')
-        FileUtils.rm_rf(@droplet.sandbox + 'META_INF')
-        FileUtils.rm_f(@droplet.sandbox + 'YouShouldNotHaveUnzippedMe.txt')
+        #FileUtils.rm_rf(@droplet.sandbox + 'agent')
+        #FileUtils.rm_rf(@droplet.sandbox + 'init.d')
+        #ileUtils.rm_rf(@droplet.sandbox + 'com')
+        #FileUtils.rm_rf(@droplet.sandbox + 'org')
+        #FileUtils.rm_rf(@droplet.sandbox + 'META_INF')
+        #FileUtils.rm_f(@droplet.sandbox + 'YouShouldNotHaveUnzippedMe.txt')
       end
 
       def logs_dir
