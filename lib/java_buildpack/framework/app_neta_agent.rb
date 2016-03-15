@@ -35,13 +35,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.java_opts
-                .add_agentpath_with_props(agent_dir + "libdtagent.so", name: "Tomcat_Monitoring", server: server)
-        #this below will be used when we go for generic profile..
-        #@droplet.java_opts
-          #.add_agentpath_with_props(agent_dir + 'libdtagent.so',
-                                    #name: application_name + '_' + profile_name,
-                                    #server: server)
+        java_opts   = @droplet.java_opts
+       java_opts.add_javaagent(@droplet.sandbox + 'tracelyticsagent.jar')
       end
 
       protected
