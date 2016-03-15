@@ -16,4 +16,4 @@
 # Configuration for the Dynatrace framework
 ---
 version: 1.10_+
-repository_root: ! '{default.repository.root}/appneta'
+repository_root: "{default.repository.root}/appneta"

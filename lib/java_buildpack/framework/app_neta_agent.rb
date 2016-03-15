@@ -28,11 +28,9 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download_zip false
+        FileUtils.mkdir_p logs_dir
+        download_jar 
         @droplet.copy_resources
-        FileUtils.mkdir(home_dir)
-        FileUtils.mv(@droplet.sandbox + 'agent/linux-x86-64/agent', home_dir)
-        delete_extra_files
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
