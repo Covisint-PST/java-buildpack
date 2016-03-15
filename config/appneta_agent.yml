@@ -1,4 +1,4 @@
 # Configuration for the AppNeta 
 ---
-version: 1.10_+
+version: 1.10_1
 repository_root: ! '{default.repository.root}/appneta'
