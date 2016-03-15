@@ -56,7 +56,7 @@ module JavaBuildpack
 
       private
 
-      FILTER = /appneta/.freeze
+      #FILTER = /appneta/.freeze
 
       private_constant :FILTER
 
@@ -90,7 +90,7 @@ module JavaBuildpack
       end
 
       def server
-        @application.services.find_service(FILTER)['credentials']['server']
+        #@application.services.find_service(FILTER)['credentials']['server']
       end
 
     end
