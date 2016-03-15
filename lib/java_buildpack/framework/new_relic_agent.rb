@@ -27,7 +27,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         FileUtils.mkdir_p logs_dir
-        download_jar tracelyticsagent.jar
+        download_jar 
         @droplet.copy_resources
       end
 
