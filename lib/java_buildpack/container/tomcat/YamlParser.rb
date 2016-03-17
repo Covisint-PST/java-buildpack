@@ -4,6 +4,7 @@ require 'open-uri'
 require 'rexml/document'
 require 'java_buildpack/component/base_component'
 require 'digest/sha1'
+require 'cgi'
 
 class MvnDownloadArtifact
   attr_reader :downloadUrl, :sha1, :artifactname, :username, :password, :contextpath
