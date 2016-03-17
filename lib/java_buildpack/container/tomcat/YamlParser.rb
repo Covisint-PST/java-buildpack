@@ -113,6 +113,9 @@ def detect
 
         mvnXmlResponse=open(@resolveurl+contextPath, http_basic_authentication: ["#{@username}", "#{@password}"]).read
            rescue OpenURI::HTTPError => ex
+            response = ex.io
+            response.status
+            response.string
             puts "wrong url endpoint: #{@resolveurl+contextPath}"
             abort
            end
