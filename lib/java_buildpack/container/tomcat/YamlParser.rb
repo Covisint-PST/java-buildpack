@@ -112,7 +112,7 @@ def detect
         #parse YAML and get the xml response
         contextPath+="#{@repopath}&p=#{type}"
 
-        mvnXmlResponse=open("#{@resolveurl+contextPath}", http_basic_authentication: ["#{@username}", "#{@password}"], 'User-Agent' => 'ruby').read
+        mvnXmlResponse=open(CGI::escape("#{@resolveurl+contextPath}"), http_basic_authentication: ["#{@username}", "#{@password}"], 'User-Agent' => 'ruby').read
            rescue OpenURI::HTTPError => ex
             response = ex.io
             puts "response.status:#{response.status}"
