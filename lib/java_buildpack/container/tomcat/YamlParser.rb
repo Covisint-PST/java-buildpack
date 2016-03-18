@@ -77,7 +77,7 @@ def detect
       unless libs.nil?
         libs.each do |lib| 
           outputpath = @droplet.root + lib.artifactname
-            open(lib.downloadUrl, http_basic_authentication: [lib.username, lib.password]) do 
+            open(lib.downloadUrl) do 
                                   |file|
                     File.open(outputpath, "w") do |out|
                       out.write(file.read)
