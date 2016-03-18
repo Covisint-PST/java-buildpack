@@ -4,7 +4,7 @@ require 'open-uri'
 require 'rexml/document'
 require 'java_buildpack/component/base_component'
 require 'digest/sha1'
-require 'cgi'
+
 
 class MvnDownloadArtifact
   attr_reader :downloadUrl, :sha1, :artifactname, :username, :password, :contextpath
@@ -112,7 +112,7 @@ def detect
         #parse YAML and get the xml response
         contextPath+="#{@repopath}&p=#{type}"
 
-        mvnXmlResponse=open(CGI::escape("#{@resolveurl+contextPath}"), http_basic_authentication: ["#{@username}", "#{@password}"], 'User-Agent' => 'ruby').read
+        mvnXmlResponse=open("#{@resolveurl+contextPath}", http_basic_authentication: ["#{@username}", "#{@password}"], 'User-Agent' => 'ruby').read
            rescue OpenURI::HTTPError => ex
             response = ex.io
             puts "response.status:#{response.status}"
