@@ -20,7 +20,7 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB8
 curl -sSL https://get.rvm.io | bash -s stable
 
 banner Installing ruby 1.9.3
-source /usr/local/rvm/scripts/rvm
+source /home/vagrant/.rvm/scripts/rvm
 rvm install 1.9.3
 rvm use 1.9.3
 rvm alias create default 1.9.3
@@ -33,7 +33,7 @@ if [[ -f \${FIRST_RUN_SCRIPT} ]]; then
 	bash \${FIRST_RUN_SCRIPT}
 	if [[ \$? -eq 0 ]]; then
 		banner "Done"
-		source /usr/local/rvm/scripts/rvm
+		source \${HOME}/.rvm/scripts/rvm
 	else
 		echo -e "\n\nFAILED TO SET UP RUBY 1.9.3\n\n"
 	fi
