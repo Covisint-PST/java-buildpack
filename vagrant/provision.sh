@@ -19,11 +19,11 @@ banner Installing rvm
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
 
-banner Installing ruby 1.9.3
+banner Installing ruby 2.1.6
 source /home/vagrant/.rvm/scripts/rvm
-rvm install 1.9.3
-rvm use 1.9.3
-rvm alias create default 1.9.3
+rvm install 2.1.6
+rvm use 2.1.6
+rvm alias create default 2.1.6
 EOT
 
 cat >>/home/vagrant/.bash_profile <<EOT1
@@ -34,10 +34,13 @@ if [[ -f \${FIRST_RUN_SCRIPT} ]]; then
 	if [[ \$? -eq 0 ]]; then
 		banner "Done"
 		source \${HOME}/.rvm/scripts/rvm
+		if [ -f ~/.bashrc ]; then 
+		  source ~/.bashrc 
+		fi
 	else
-		echo -e "\n\nFAILED TO SET UP RUBY 1.9.3\n\n"
-	fi
-	rm -f \${FIRST_RUN_SCRIPT}
+		echo -e "\n\nFAILED TO SET UP RUBY 2.1.6\n\n"
+	fi		
+			rm -f \${FIRST_RUN_SCRIPT}
 
 fi
 EOT1
