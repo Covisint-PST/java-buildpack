@@ -187,7 +187,7 @@ module JavaBuildpack
     end
 
     def no_container
-      fail 'No container can run this application. Please ensure that you’ve pushed a valid JVM artifact or ' \
+      fail 'No container can run this application. Please ensure that you've pushed a valid JVM artifact or ' \
            'artifacts using the -p command line argument or path manifest entry. Information about valid JVM ' \
            'artifacts can be found at https://github.com/cloudfoundry/java-buildpack#additional-documentation. '
     end
