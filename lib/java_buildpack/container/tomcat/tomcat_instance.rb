@@ -80,9 +80,10 @@ module JavaBuildpack
         else
          
           link_webapps(@application.root.children, tomcat_webapps)
+	  @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
+          @droplet.additional_libraries.link_to web_inf_lib
         end
-	@droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
-        @droplet.additional_libraries.link_to web_inf_lib
+	
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
