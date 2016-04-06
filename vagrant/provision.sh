@@ -1,9 +1,9 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y curl realpath sysvbanner unzip
+sudo apt-get install -y curl realpath sysvbanner unzip vim
 
-mkdir /app
+mkdir -p /app
 chown vagrant:vagrant /app
 
 cat >/home/vagrant/.bash_1st_time <<EOT
@@ -12,17 +12,18 @@ cat >/home/vagrant/.bash_1st_time <<EOT
 set -e
 
 cd /vagrant/vagrant/run
-ln -s detect compile
-ln -s detect release
-
+ln -fs detect compile
+ln -fs detect release
+chmod -R 755 /vagrant/vagrant/run
 banner Installing rvm
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
 
-banner Installing ruby 1.9.3
+banner Installing ruby 2.1.6
 source /home/vagrant/.rvm/scripts/rvm
-rvm use --install 1.9.3
-rvm alias create default 1.9.3
+rvm install 2.1.6
+rvm use 2.1.6
+rvm alias create default 2.1.6
 EOT
 
 cat >>/home/vagrant/.bash_profile <<EOT1
@@ -33,10 +34,13 @@ if [[ -f \${FIRST_RUN_SCRIPT} ]]; then
 	if [[ \$? -eq 0 ]]; then
 		banner "Done"
 		source \${HOME}/.rvm/scripts/rvm
+		if [ -f ~/.bashrc ]; then 
+		  source ~/.bashrc 
+		fi
 	else
-		echo -e "\n\nFAILED TO SET UP RUBY 1.9.3\n\n"
-	fi
-	rm -f \${FIRST_RUN_SCRIPT}
+		echo -e "\n\nFAILED TO SET UP RUBY 2.1.6\n\n"
+	fi		
+			rm -f \${FIRST_RUN_SCRIPT}
 
 fi
 EOT1

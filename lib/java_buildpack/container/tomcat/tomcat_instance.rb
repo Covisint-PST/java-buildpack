@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013-2015 the original author or authors.
+# Copyright 2013-2016 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -77,15 +77,12 @@ module JavaBuildpack
           end
         FileUtils.mkdir_p tomcat_webapps
         link_webapps(wars, tomcat_webapps)
-        #dyanamic context tag will be created under Server.xml 
-        # Commenting this out temporarily. Till a better solution is found
-        #unless contextpaths.nil?
-        #context_path_appender contextpaths
-        #end
         else
          
           link_webapps(@application.root.children, tomcat_webapps)
         end
+	@droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
+        @droplet.additional_libraries.link_to web_inf_lib
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
@@ -133,7 +130,7 @@ module JavaBuildpack
       end
 
       def expand(file)
-        with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
+        with_timing "Expanding #{@component_name} to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 
@@ -149,7 +146,8 @@ module JavaBuildpack
       end
 
       def root
-        tomcat_webapps + 'ROOT'
+        context_path = (@configuration['context_path'] || 'ROOT').sub(%r{^/}, '').gsub(%r{/}, '#')
+        tomcat_webapps + context_path
       end
 
       def tomcat_datasource_jar

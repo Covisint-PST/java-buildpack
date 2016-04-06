@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013-2015 the original author or authors.
+# Copyright 2013-2016 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,9 +20,7 @@ require 'rexml/formatters/pretty'
 
 module JavaBuildpack
   module Container
-    
-    TOMCAT_DEPLOY_DIR = 'webapps'
-    
+
     # The Tomcat +context.xml+ file
     #
     # @return [Pathname] the Tomcat +context.xml+ file
@@ -66,9 +64,9 @@ module JavaBuildpack
     #
     # @return [Pathname] the Tomcat +webapps+ directory
     def tomcat_webapps
-      @droplet.sandbox + TOMCAT_DEPLOY_DIR
+      @droplet.sandbox + 'webapps'
     end
-  
+
     # Write a properly formatted XML file
     #
     # @param [Pathname] file the file to write

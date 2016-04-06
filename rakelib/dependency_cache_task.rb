@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright (c) 2014 the original author or authors.
+# Copyright 2013-2016 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -114,7 +114,7 @@ module Package
     end
 
     def configuration(id)
-      JavaBuildpack::Util::ConfigurationUtils.load id, false
+      JavaBuildpack::Util::ConfigurationUtils.load(id, false, false)
     end
 
     def configurations(component_id, configuration, sub_component_id = nil)
@@ -125,7 +125,7 @@ module Package
         configuration['sub_component_id'] = sub_component_id if sub_component_id
         configurations << configuration
       else
-        configuration.values.each { |v| configurations << configurations(v) if v.is_a? Hash }
+        configuration.each { |k, v| configurations << configurations(component_id, v, k) if v.is_a? Hash }
       end
 
       configurations
@@ -158,7 +158,6 @@ module Package
       configurations.each do |configuration|
         index_configuration(configuration).each do |index_configuration|
           multitask PACKAGE_NAME => [cache_task(index_configuration[:uri])]
-
           get_from_cache(configuration, index_configuration, uris)
         end
       end
@@ -185,9 +184,9 @@ module Package
       component_id = old_configuration['component_id']
       sub_component_id = old_configuration['sub_component_id']
       rake_output_message "Pinning #{sub_component_id ? sub_component_id : component_id} version to #{version}"
-      configuration_to_update = JavaBuildpack::Util::ConfigurationUtils.load(component_id, true)
+      configuration_to_update = JavaBuildpack::Util::ConfigurationUtils.load(component_id, false, true)
       update_configuration(configuration_to_update, version, sub_component_id)
-      JavaBuildpack::Util::ConfigurationUtils.write(component_id, configuration_to_update, true)
+      JavaBuildpack::Util::ConfigurationUtils.write(component_id, configuration_to_update)
     end
 
     def update_configuration(config, version, sub_component)
