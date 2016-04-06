@@ -21,7 +21,7 @@ libraries: #specify all libraries as a sequence of GAV Coordinates. These would 
 - g: <groupId>
   a: <artifactId>
   v: <version>
-      
+
 webapps: #specify all wars as a sequence of GAV Coordinates this would go into tomcat\webapps folder
 - g: <groupId>
   a: <artifactId>
@@ -34,7 +34,7 @@ webapps: #specify all wars as a sequence of GAV Coordinates this would go into t
 container: #allowed keys for configtomcat[tomcat8,tomcat7,tomcat6] and configjdk[oraclejdk8,oraclejdk7,openjdk8,openkdk7]
    configtomcat: <tomcatkey>
    configjdk: <jdkkey>
-```	
+```
 all the jars and wars will be downloaded and verify SHA checksum for validation. all the jars will be copied over to tomcat/lib and webapps will have all wars.
 
 ###Even shared libs can be (optional). if we want to use libraries as optional then remove the below section from YAML
@@ -58,17 +58,17 @@ libraries: #specify all libraries as a sequence of GAV Coordinates. These would 
 1.	Passing the manifest using "–p” does not work. Looks like the CF CLI does not support upload of a single file which is not an Archive. I think this might work using the CF rest APIs. Let me know if it does not.. Will find some work around for you.
 2.	Use *.yaml for now. *.yml does not work. Looks like CF CLI strips *.yml files before upload. Should work with the rest API. But stick to *.yaml as that seems to the official extension
 
-##convert YAML file into zip formation and use like below 
+##convert YAML file into zip formation and use like below
 ```
- cf p <app-name> -b https://github.com/Covisint-PST/java-buildpack.git -p repo-manifest.zip 
+ cf p <app-name> -b https://github.com/Covisint-PST/java-buildpack.git -p repo-manifest.zip
 ```
 
 
-##Generic support for different jdk , tomcat version with JCE support 
+##Generic support for different jdk , tomcat version with JCE support
 ```
 	This build has now enhanced to support different jdk and tomcat versions enable via config.yml and based on that versions both jdk(open and Oracle) and tomcat will be downloaded.
-Also respective version of JCE security jars will be copied over to jre/security/ folder.	
- cf p <app-name> -b https://github.com/Covisint-PST/java-buildpack.git -p repo-manifest.zip 
+Also respective version of JCE security jars will be copied over to jre/security/ folder.
+ cf p <app-name> -b https://github.com/Covisint-PST/java-buildpack.git -p repo-manifest.zip
 ```
 ##Support for Valves with Multiple catalina containers
 
@@ -116,7 +116,7 @@ Valves which users are setting here are in JSON format and contains three type o
 				  "alwaysUseSession":"true",
 				  "changeSessionIdOnAuthentication":"true"
 				 }
-				] 
+				]
 }				
 ```
 ## Usage
@@ -148,4 +148,4 @@ cd /vagrant/<directory-containing-war-or-zip-files>
 ```
 
 ## Cloudfoundry community support
-Since this build pack enhanced from cloudofundry java-buildpack , cloudfoundry buildpack related information can be accessed viahttps://github.com/cloudfoundry/java-buildpack/blob/master/README.md
+Since this build pack enhanced from cloudofundry java-buildpack , cloudfoundry buildpack related information can be accessed via [cloudofundry Java buildpack]: https://github.com/cloudfoundry/java-buildpack/blob/master/README.md
