@@ -15,6 +15,5 @@
 
 # Configuration for the Dynatrace framework
 ---
-version: 6.1.0
-repository_root: "{default.repository.root}/dynatrace"
-default_agent_name:
+version: 6.1.0_+
+repository_root: "https://s3-us-west-2.amazonaws.com/covisintrnd.com-dynatrace/"
