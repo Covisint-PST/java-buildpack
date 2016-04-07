@@ -15,6 +15,6 @@
 
 # Configuration for the Dynatrace framework
 ---
-version: 6.1.0_+
+version: 6.1.0
 repository_root: "{default.repository.root}/dynatrace"
 default_agent_name:
