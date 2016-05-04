@@ -26,6 +26,7 @@ class YamlParser < JavaBuildpack::Component::BaseComponent
   CONTEXT_PATH = 'context-path:'
   def initialize(context)
      super(context)
+     puts "yaml is loading..."
      @application.root.entries.find_all do |p|               
                            # load yaml file from app dir
                            if p.fnmatch?('*.yaml')
