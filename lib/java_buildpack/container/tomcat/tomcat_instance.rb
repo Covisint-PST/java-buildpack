@@ -61,6 +61,7 @@ module JavaBuildpack
                         contextpaths[wapp.artifactname]=wapp.contextpath
                         end
                         #file download from url with http_header authentication
+                        puts "#{wapp.downloadUrl}"
                         open(wapp.downloadUrl) do 
                         |file|
                                File.open(outputpath, "w") do |out|
