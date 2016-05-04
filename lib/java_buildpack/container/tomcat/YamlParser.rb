@@ -114,7 +114,7 @@ def detect
     begin
         #parse YAML and get the xml response
         contextPath+="#{@repopath}&p=#{type}"
-
+        puts "before openURI.."
         mvnXmlResponse=open("#{@resolveurl+contextPath}").read
            rescue OpenURI::HTTPError => ex
             response = ex.io
@@ -123,7 +123,7 @@ def detect
             puts "wrong url endpoint: #{@resolveurl+contextPath}"
             abort
            end
-
+     puts "after read.."
       # create Object which is having downloadUrl, sha1 (for checksum) and version (for cache history)
       @compMaps << MvnDownloadArtifact.new(@contenturl+contextPath,
       REXML::Document.new(mvnXmlResponse).elements[SHA1].text,
