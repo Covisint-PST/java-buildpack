@@ -43,11 +43,13 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
          download(@version, @uri) { |file| expand file }
-         puts "inside tomcat"
+         
           if isYaml?
                wars = []
                contextpaths = Hash.new
+               puts "inside tomcat.."
                wapps=@yamlobj.read_config "webapps", "war"
+               puts "inside tomcat..."
                      wapps.each do |wapp|
                         unless wapp.contextpath.nil?
                             wapp.contextpath.strip!
