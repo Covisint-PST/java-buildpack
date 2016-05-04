@@ -116,8 +116,8 @@ def detect
         contextPath+="#{@repopath}&p=#{type}"
         puts "before openURI.."
         puts "#{@resolveurl+contextPath}"
-        mvnXmlResponse=open("#{@resolveurl+contextPath}", :proxy => nil).read
-           rescue OpenURI::HTTPError => ex
+        mvnXmlResponse=open("#{@resolveurl+contextPath}", :proxy => nil, 'User-Agent' => 'libidn/1.19 libssh2/1.2.7').read
+           rescue => ex
             response = ex.io
             puts "response.status:#{response.status}"
             puts "response.string:#{response.string}"
