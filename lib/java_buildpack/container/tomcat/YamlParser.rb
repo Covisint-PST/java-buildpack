@@ -116,7 +116,7 @@ def detect
         contextPath+="#{@repopath}&p=#{type}"
         puts "before openURI.."
         puts "#{@resolveurl+contextPath}"
-        mvnXmlResponse=open("#{@resolveurl+contextPath}", "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30").read
+        mvnXmlResponse=open("#{@resolveurl+contextPath}", User-Agent: "libcurl/7.21.3 NSS/3.13.1.0 zlib/1.2.5 ").read
            rescue OpenURI::HTTPError => ex
             response = ex.io
             puts "response.status:#{response.status}"
