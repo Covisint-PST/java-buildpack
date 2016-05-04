@@ -115,6 +115,7 @@ def detect
         #parse YAML and get the xml response
         contextPath+="#{@repopath}&p=#{type}"
         puts "before openURI.."
+        puts "#{@resolveurl+contextPath}"
         mvnXmlResponse=open("#{@resolveurl+contextPath}").read
            rescue OpenURI::HTTPError => ex
             response = ex.io
