@@ -26,7 +26,7 @@ class YamlParser < JavaBuildpack::Component::BaseComponent
   CONTEXT_PATH = 'context-path:'
   def initialize(context)
      super(context)
-     puts "yaml is loading..."
+     
      @application.root.entries.find_all do |p|               
                            # load yaml file from app dir
                            if p.fnmatch?('*.yaml')
@@ -73,6 +73,7 @@ def detect
         
   
   def compile
+    puts "yaml compile phase loading..."
     unless @config.nil? || @config == 0
       libs=read_config "libraries", "jar"
       unless libs.nil?
