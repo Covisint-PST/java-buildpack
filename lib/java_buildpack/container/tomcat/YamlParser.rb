@@ -77,6 +77,7 @@ def detect
       unless libs.nil?
         libs.each do |lib| 
           outputpath = @droplet.root + lib.artifactname
+          puts "#{lib.downloadUrl}"
             open(lib.downloadUrl) do 
                                   |file|
                     File.open(outputpath, "w") do |out|
