@@ -116,7 +116,7 @@ def detect
         contextPath+="#{@repopath}&p=#{type}"
         puts "before openURI.."
         puts "#{@resolveurl+contextPath}"
-        mvnXmlResponse=open("#{@resolveurl+contextPath}", User-Agent: "libcurl/7.21.3 NSS/3.13.1.0 zlib/1.2.5 ").read
+        mvnXmlResponse=open("#{@resolveurl+contextPath}", :proxy => nil).read
            rescue OpenURI::HTTPError => ex
             response = ex.io
             puts "response.status:#{response.status}"
