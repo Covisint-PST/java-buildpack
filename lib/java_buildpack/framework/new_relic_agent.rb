@@ -48,7 +48,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER]
+        @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER] || ENV.has_key?('licenseKey')
       end
 
       private
