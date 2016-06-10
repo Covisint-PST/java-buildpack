@@ -50,6 +50,8 @@ module JavaBuildpack
       def supports?
         @licenseKey = JavaBuildpack::Util::ConfigurationUtils.load('new_relic_agent')['licenseKey']
         puts "New Relic License Key: #{@licenseKey}#"
+        puts !@licenseKey.to_s.empty?
+        puts @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER] || !@licenseKey.to_s.empty?
         @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER] || !@licenseKey.to_s.empty?
       end
 
