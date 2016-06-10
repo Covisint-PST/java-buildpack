@@ -48,7 +48,9 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER] || ENV.has_key?('licenseKey')
+        @licenseKey = JavaBuildpack::Util::ConfigurationUtils.load('new_relic_agent')['licenseKey']
+        puts "New Relic License Key: #{@licenseKey}#"
+        @application.services.one_service? FILTER, [LICENSE_KEY, LICENSE_KEY_USER] || @licenseKey
       end
 
       private
