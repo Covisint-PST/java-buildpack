@@ -42,6 +42,10 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
+        puts "details: --: #{@application.details}"
+        puts "environment  : --: #{@application.environment}"
+        puts "root : --: #{@application.root}"
+        puts "services : --: #{@application.services}"
          download(@version, @uri) { |file| expand file }
           if isYaml?
                wars = []
