@@ -133,18 +133,19 @@ module JavaBuildpack
       end
       
       def configure_web_error_page
- 
            document = read_xml web_xml
            web_app  = REXML::XPath.match(document, 'web-app').first
-           error_page = REXML::Element.new('error-page')
-           error_code = REXML::Element.new('error-code')
-           location = REXML::Element.new('location')
-           error_page.add_element(error_code)
-           error_page.add_element(location)
-           error_page.elements["error-code"].text = "503"
-           error_page.elements["location"].text = "/error.html"
-           web_app.add_element(error_page)     
-                          
+           error_codes = ['403', '404', '500']
+           error_codes.each do |errcode|
+                 error_page = REXML::Element.new('error-page') 
+                 error_code = REXML::Element.new('error-code')
+                 location = REXML::Element.new('location')
+                 error_page.add_element(error_code)
+                 error_page.add_element(location)
+                 error_page.elements["error-code"].text = errcode
+                 error_page.elements["location"].text = "/error.html"
+                 web_app.add_element(error_page)
+           end
            write_xml web_xml, document
        end
 
