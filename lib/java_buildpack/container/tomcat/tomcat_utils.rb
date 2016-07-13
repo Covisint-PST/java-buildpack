@@ -29,6 +29,13 @@ module JavaBuildpack
     def context_xml
       @droplet.sandbox + 'conf/context.xml'
     end
+    
+    # The Tomcat +web.xml+ file
+    #
+    # @return [Pathname] the Tomcat +web.xml+ file
+    def web_xml
+      @droplet.sandbox + 'conf/web.xml'
+    end
 
     # Link a collection of files to a destination directory, using relative paths
     #

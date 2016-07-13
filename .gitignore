@@ -2,6 +2,7 @@
 .idea/workspace.xml
 .yardoc
 .vagrant
+.project
 vagrant/run/compile
 vagrant/run/release
 build/

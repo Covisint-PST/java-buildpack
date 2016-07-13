@@ -131,6 +131,24 @@ module JavaBuildpack
 
         write_xml context_xml, document
       end
+      
+      def configure_web_error_page
+ 
+           document = read_xml web_xml
+           web_app  = REXML::XPath.match(document, 'web-app').first
+           error_page = REXML::Element.new('error-page')
+           error_code = REXML::Element.new('error-code')
+           location = REXML::Element.new('location')
+           error_page.add_element(error_code)
+           error_page.add_element(location)
+           error_page.elements["error_code"].text = "503"
+           error_page.elements["location"].text = "/error.html"
+           web_app.add_element(error_page)     
+      end
+                    
+           write_xml server_xml, document
+       end
+
 
       def expand(file)
         with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
@@ -140,6 +158,7 @@ module JavaBuildpack
           @droplet.copy_resources
           configure_linking
           configure_jasper
+          configure_web_error_page
           if ENV.has_key?('valve')
           unless ENV['valve'].nil? && ENV['valve'].empty?
           valve_appender
