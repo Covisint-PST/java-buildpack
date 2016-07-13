@@ -144,9 +144,8 @@ module JavaBuildpack
            error_page.elements["error_code"].text = "503"
            error_page.elements["location"].text = "/error.html"
            web_app.add_element(error_page)     
-      end
-                    
-           write_xml server_xml, document
+                          
+           write_xml web_xml, document
        end
 
 
