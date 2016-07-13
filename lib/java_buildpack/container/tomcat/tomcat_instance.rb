@@ -141,7 +141,7 @@ module JavaBuildpack
            location = REXML::Element.new('location')
            error_page.add_element(error_code)
            error_page.add_element(location)
-           error_page.elements["error_code"].text = "503"
+           error_page.elements["error-code"].text = "503"
            error_page.elements["location"].text = "/error.html"
            web_app.add_element(error_page)     
                           
