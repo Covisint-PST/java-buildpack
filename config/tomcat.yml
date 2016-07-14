@@ -18,7 +18,7 @@
 tomcat8:
   version: 8.0.+
   repository_root: ! '{default.repository.root}/tomcat'
-covs_np_tomcat8:
+covs_beta:
   version: 8.0.+
   repository_root: ! '{default.repository.root}/covs_np_tomcat'
 tomcat7:

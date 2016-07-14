@@ -155,7 +155,7 @@ module JavaBuildpack
                  error_page.elements["exception-type"].text = "java.lang.Throwable"
                  error_page.elements["location"].text = "/error.html"
                  web_app.add_element(error_page)
-                 
+                  
            write_xml web_xml, document
        end
 
