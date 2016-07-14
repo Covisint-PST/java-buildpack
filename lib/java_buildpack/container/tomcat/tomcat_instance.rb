@@ -146,6 +146,16 @@ module JavaBuildpack
                  error_page.elements["location"].text = "/error.html"
                  web_app.add_element(error_page)
            end
+           
+           error_page = REXML::Element.new('error-page') 
+                 exception_type = REXML::Element.new('exception-type')
+                 location = REXML::Element.new('location')
+                 error_page.add_element(exception_type)
+                 error_page.add_element(location)
+                 error_page.elements["exception-type"].text = "java.lang.Throwable"
+                 error_page.elements["location"].text = "/error.html"
+                 web_app.add_element(error_page)
+                 
            write_xml web_xml, document
        end
 
