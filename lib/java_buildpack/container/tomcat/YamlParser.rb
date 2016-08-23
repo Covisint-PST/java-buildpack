@@ -76,7 +76,8 @@ def detect
       unless libs.nil?
         libs.each do |lib| 
           outputpath = @droplet.root + lib.artifactname
-            open(lib.downloadUrl, http_basic_authentication: [lib.username, lib.password]) do 
+          puts "#{lib.downloadUrl}"
+            open(lib.downloadUrl) do 
                                   |file|
                     File.open(outputpath, "w") do |out|
                       out.write(file.read)
@@ -111,8 +112,11 @@ def detect
         #parse YAML and get the xml response
         contextPath+="#{@repopath}&p=#{type}"
 
-        mvnXmlResponse=open(@resolveurl+contextPath, http_basic_authentication: ["#{@username}", "#{@password}"]).read
-           rescue OpenURI::HTTPError => ex
+        puts "#{@resolveurl+contextPath}"
+        mvnXmlResponse=open("#{@resolveurl+contextPath}").read
+           rescue => ex
+            response = ex
+            puts "response.string:#{response}"
             puts "wrong url endpoint: #{@resolveurl+contextPath}"
             abort
            end
